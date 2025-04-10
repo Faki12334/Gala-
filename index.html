@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Afterwork Galapagos</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #e0f7fa; }
+    label, input { display: block; margin-top: 10px; }
+    input[type="number"] { width: 60px; }
+    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Formulaire Afterwork Galapagos</h1>
+
+  <label>Prénom :</label>
+  <input type="text" id="name" placeholder="Votre prénom" required>
+
+  <h3>Boissons</h3>
+  <label>Bière blonde (3€) <input type="number" id="biereBlonde" min="0" value="0"></label>
+  <label>Bière rouge (3.5€) <input type="number" id="biereRouge" min="0" value="0"></label>
+  <label>Soft (1€) <input type="number" id="soft" min="0" value="0"></label>
+  <label>Monaco (2.5€) <input type="number" id="monaco" min="0" value="0"></label>
+  <label>Monaco soft (1.5€) <input type="number" id="monacoSoft" min="0" value="0"></label>
+
+  <h3>Repas</h3>
+  <label>Tortillas (1€ pièce, 3 pour 2.5€) <input type="number" id="tortillas" min="0" value="0"></label>
+  <label>Chips au fromage (1€) <input type="number" id="chips" min="0" value="0"></label>
+
+  <button onclick="payer()">Payer via Lydia</button>
+
+  <script>
+    function payer() {
+      const name = document.getElementById('name').value.trim();
+      const biereBlonde = +document.getElementById('biereBlonde').value;
+      const biereRouge = +document.getElementById('biereRouge').value;
+      const soft = +document.getElementById('soft').value;
+      const monaco = +document.getElementById('monaco').value;
+      const monacoSoft = +document.getElementById('monacoSoft').value;
+      const tortillas = +document.getElementById('tortillas').value;
+      const chips = +document.getElementById('chips').value;
+
+      if (!name) {
+        alert("Merci d'entrer votre prénom.");
+        return;
+      }
+
+      // Calcul des prix
+      let total = 0;
+      total += biereBlonde * 3;
+      total += biereRouge * 3.5;
+      total += soft * 1;
+      total += monaco * 2.5;
+      total += monacoSoft * 1.5;
+      total += chips * 1;
+
+      // Gestion des tortillas (1€ pièce ou 3 pour 2.5€)
+      const lotsDe3 = Math.floor(tortillas / 3);
+      const reste = tortillas % 3;
+      total += lotsDe3 * 2.5 + reste * 1;
+
+      total = total.toFixed(2);
+
+      const numero = '0782779105';
+      const message = `Payement Afterwork ${name}`;
+
+      const url = `https://lydia-app.com/request.html?recipient=${numero}&amount=${total}&currency=EUR&message=${encodeURIComponent(message)}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
