@@ -64,8 +64,7 @@
       const numero = '0782779105';
       const message = Payement Afterwork ${name};
 
-      const url = https://lydia-app.com/request.html?recipient=${numero}&amount=${total}&currency=EUR&message=${encodeURIComponent(message)};
-      window.location.href = url;
+      const url = lydia://request-payment?recipient=${numero}&amount=${total}&currency=EUR&message=${encodeURIComponent(message)};
     }
   </script>
 </body>
